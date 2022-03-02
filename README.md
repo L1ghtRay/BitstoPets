@@ -1,2 +1,2 @@
 # BitstoPets
-Bits -> Pet Upgrade -> Stonks
+BUy pet -> Upgrade pet using Bits -> Sell pet -> Stonks
