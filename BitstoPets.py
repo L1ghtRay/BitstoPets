@@ -30,7 +30,6 @@ for a in range(totalpg):
             if d['success'] == False:
                 data = requests.get(url+str(a))
                 d = data.json()
-                print("Fail 3")
     x.extend(d["auctions"])
     print("Page:", a)
 
