@@ -30,9 +30,9 @@ sort = [items for items in x if not items['claimed'] and items["bin"] and "[Lvl"
 
 filtr = [{k: v for k, v in l.items() if k in ('uuid', 'auctioneer', 'start', 'end', 'item_name', 'item_lore', 'tier', 'starting_bid')} for l in sort]
 
+print("Total Number of Pet Bins:",len(filtr))
+
 user = str(input("Enter the Full Path Location where you want the Output to be made (C:\\Users): "))
 
 with open(user+"\output.txt", "w") as f:
     print(str(filtr).encode("ascii","ignore").decode(), file=f)
-
-print("Total Number of Pet Bins:",len(filtr))
