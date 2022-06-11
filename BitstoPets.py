@@ -34,5 +34,5 @@ print("Total Number of Pet Bins:",len(fltr))
 
 user = str(input("Enter the Full Path Location where you want the Output to be made (C:\\Users): "))
 
-with open(user+"\output.txt", "w+") as f:
+with open(user+"\output.txt", "w") as f:
     print(str(fltr).encode("ascii","ignore").decode(), file=f)
