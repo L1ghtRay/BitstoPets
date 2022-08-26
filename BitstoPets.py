@@ -4,113 +4,114 @@
 
 import requests
 import json
+import tabulate
 
 pets = {
     'Armadillo': {
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 1000000, 'MAT': [None,0,0]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 1000000, 'MAT': [None,0,0]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Bal': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 2000000, 'MAT': ['YOGGIE', 100]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 2000000, 'MAT': ['YOGGIE', 100]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Bat': {
-        'RARE': {'AH': [None], 'KAT': 1, 'COST': 190000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_RED_MUSHROOM', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 1, 'COST': 190000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_RED_MUSHROOM', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Bee': {
-        'EPIC': {'AH': [None], 'KAT': 3, 'COST': 450000, 'MAT': ['ENCHANTED_GOLD_BLOCK', 9]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 3, 'COST': 450000, 'MAT': ['ENCHANTED_GOLD_BLOCK', 9]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Blaze': {
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 250000, 'MAT': ['ENCHANTED_BLAZE_ROD', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 250000, 'MAT': ['ENCHANTED_BLAZE_ROD', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Blue Whale': {
-        'RARE': {'AH': [None], 'KAT': 7, 'COST': 900000, 'MAT': ['ENCHANTED_COOKED_FISH', 1]},
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 9000000, 'MAT': ['ENCHANTED_COOKED_FISH', 8]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 7, 'COST': 900000, 'MAT': ['ENCHANTED_COOKED_FISH', 1]},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 9000000, 'MAT': ['ENCHANTED_COOKED_FISH', 8]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Chicken': {
-        'EPIC': {'AH': [None], 'KAT': 1, 'COST': 250000, 'MAT': ['ENCHANTED_RAW_CHICKEN', 8]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 1, 'COST': 250000, 'MAT': ['ENCHANTED_RAW_CHICKEN', 8]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Elephant': {
-        'RARE': {'AH': [None], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 14000000, 'MAT': [None,0,0]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 14000000, 'MAT': [None,0,0]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Endermite': {
-        'EPIC': {'AH': [None], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_ENDSTONE', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_ENDSTONE', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Flying Fish': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 1000000, 'MAT': ['ENCHANTED_RAW_FISH', 64]},
-        'LEGENDARY': {'AH': [None], 'KAT': 1, 'COST': 1000000, 'MAT': ['Radioactive Vial', 1]},
-        'MYTHIC': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 1000000, 'MAT': ['ENCHANTED_RAW_FISH', 64]},
+        'LEGENDARY': {'AH': [None, 0], 'KAT': 1, 'COST': 1000000, 'MAT': ['Radioactive Vial', 1]},
+        'MYTHIC': {'AH': [None, 0]}},
     'Guardian': {
-        'RARE': {'AH': [None], 'KAT': 2, 'COST': 500000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 3000000, 'MAT': ['ENCHANTED_PRISMARINE_SHARD', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 2, 'COST': 500000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 3000000, 'MAT': ['ENCHANTED_PRISMARINE_SHARD', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Horse': {
-        'EPIC': {'AH': [None], 'KAT': 1, 'COST': 250000, 'MAT': ['ENCHANTED_LEATHER', 8]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 1, 'COST': 250000, 'MAT': ['ENCHANTED_LEATHER', 8]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Jellyfish': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 15000000, 'MAT': ['ENCHANTED_SLIME_BALL', 16]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 15000000, 'MAT': ['ENCHANTED_SLIME_BALL', 16]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Jerry': {
-        'EPIC': {'AH': [None], 'KAT': 3, 'COST': 100000, 'MAT': ['MOVE_JERRY_EGG', 1, 0]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 3, 'COST': 100000, 'MAT': ['MOVE_JERRY_EGG', 1, 0]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Lion': {
-        'RARE': {'AH': [None], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 14000000, 'MAT': ['ENCHANTED_RAW_BEEF', 1024]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 14000000, 'MAT': ['ENCHANTED_RAW_BEEF', 1024]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Magma Cube': {
-        'RARE': {'AH': [None], 'KAT': 5, 'COST': 10000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 500000, 'MAT': ['ENCHANTED_MAGMA_CREAM', 16]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 5, 'COST': 10000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 500000, 'MAT': ['ENCHANTED_MAGMA_CREAM', 16]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Mithril Golem': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 200000, 'MAT': [None,0,0]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 200000, 'MAT': [None,0,0]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Monkey': {
-        'RARE': {'AH': [None], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 17000000, 'MAT': [None,0,0]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 7, 'COST': 900000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 17000000, 'MAT': [None,0,0]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Ocelot': {
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_JUNGLE_LOG', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_JUNGLE_LOG', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Parrot': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 15000000, 'MAT': ['ENCHANTED_FEATHER', 16]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 15000000, 'MAT': ['ENCHANTED_FEATHER', 16]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Pig': {
-        'EPIC': {'AH': [None], 'KAT': 1, 'COST': 250000, 'MAT': ['PORK', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 1, 'COST': 250000, 'MAT': ['PORK', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Pigman': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 250000, 'MAT': ['ENCHANTED_GRILLED_PORK', 8]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 250000, 'MAT': ['ENCHANTED_GRILLED_PORK', 8]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Rabbit': {
-        'EPIC': {'AH': [None], 'KAT': 1, 'COST': 250000, 'MAT': ['RABBIT', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 1, 'COST': 250000, 'MAT': ['RABBIT', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Sheep': {
-        'EPIC': {'AH': [None], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_MUTTON', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_MUTTON', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Silverfish': {
-        'EPIC': {'AH': [None], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_COBBLESTONE', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_COBBLESTONE', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Skeleton': {
-        'EPIC': {'AH': [None], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_BONE', 128]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 3, 'COST': 250000, 'MAT': ['ENCHANTED_BONE', 128]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Spider': {
-        'EPIC': {'AH': [None], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_STRING', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 7, 'COST': 250000, 'MAT': ['ENCHANTED_STRING', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Squid': {
-        'RARE': {'AH': [None], 'KAT': 2, 'COST': 500000, 'MAT': [None,0,0]},
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 3000000, 'MAT': ['ENCHANTED_INK_SACK', 64]},
-        'LEGENDARY': {'AH': [None]}},
+        'RARE': {'AH': [None, 0], 'KAT': 2, 'COST': 500000, 'MAT': [None,0,0]},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 3000000, 'MAT': ['ENCHANTED_INK_SACK', 64]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Tiger': {
-        'EPIC': {'AH': [None], 'KAT': 12, 'COST': 14000000, 'MAT': ['ENCHANTED_RAW_CHICKEN', 1024]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 12, 'COST': 14000000, 'MAT': ['ENCHANTED_RAW_CHICKEN', 1024]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Wither Skeleton': {
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_COAL_BLOCK', 8]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_COAL_BLOCK', 8]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Wolf': {
-        'EPIC': {'AH': [None], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_SPRUCE_LOG', 512]},
-        'LEGENDARY': {'AH': [None]}},
+        'EPIC': {'AH': [None, 0], 'KAT': 5, 'COST': 250000, 'MAT': ['ENCHANTED_SPRUCE_LOG', 512]},
+        'LEGENDARY': {'AH': [None, 0]}},
     'Zombie': {
-        'EPIC': {'AH': [None], 'KAT': 10, 'COST': 250000, 'MAT': ["Zombie's Heart", 8]},
-        'LEGENDARY': {'AH': [None]}}
+        'EPIC': {'AH': [None, 0], 'KAT': 10, 'COST': 250000, 'MAT': ["Zombie's Heart", 8]},
+        'LEGENDARY': {'AH': [None, 0]}}
     }
 
 url = "https://api.hypixel.net/skyblock/auctions?page="
@@ -155,8 +156,11 @@ for flt in fltr:
     for ptn in pets.keys():
         if ptn in flt['item_name']:
             if flt['tier'] in pets[ptn].keys():
-                if pets[ptn][flt['tier']]['AH'][0]==None or flt['starting_bid'] < pets[ptn][flt['tier']]['AH'][0]:
-                    pets[ptn][flt['tier']]['AH'] = [flt['starting_bid'],flt['uuid']]
+                if pets[ptn][flt['tier']]['AH'][1]==0 or (flt['starting_bid'] / pets[ptn][flt['tier']]['AH'][0])<=1.1:
+                    ahc = pets[ptn][flt['tier']]['AH'][1]+1
+                    pets[ptn][flt['tier']]['AH'][1] = ahc
+                    if pets[ptn][flt['tier']]['AH'][0]==None or flt['starting_bid'] < pets[ptn][flt['tier']]['AH'][0]:
+                        pets[ptn][flt['tier']]['AH'][0] = flt['starting_bid']
 print('[SUCCESS] Pet Prices')
 
 pets['Flying Fish']['LEGENDARY']['MAT'].append(ahitem('Radioactive Vial'))
@@ -179,11 +183,14 @@ for pr in p1:
         for ptr in pets[ptn]:
             if 'MAT' in pets[ptn][ptr].keys() and len(pets[ptn][ptr]['MAT'])>0 and pets[ptn][ptr]['MAT'][0]==pr:
                 pets[ptn][ptr]['MAT'].append(p1[pr])
-print('[SUCCESS] Material Prices')
+print('[SUCCESS] Material Prices\n')
+
+pettab = []
 
 def bits(nam,rar):
     global pets
-    if 'MAT' in pets[nam][rar].keys() and pets[nam][rar]['AH'][0]!=None:
+    global pettab
+    if 'MAT' in pets[nam][rar].keys() and pets[nam][rar]['AH'][1]!=0 and pets[nam][rar]['MAT'][2]!=None:
         if rar=='RARE':
             rar1 = 'EPIC'
         if rar=='EPIC':
@@ -192,16 +199,26 @@ def bits(nam,rar):
             rar1 = 'MYTHIC'
         matc = pets[nam][rar]['MAT'][1]
         matp = pets[nam][rar]['MAT'][2]
+        matn = pets[nam][rar]['MAT'][0]
+        petc1 = pets[nam][rar]['AH'][1]
+        petc2 = pets[nam][rar1]['AH'][1]
         basp = pets[nam][rar]['COST']
         ktf = pets[nam][rar]['KAT']
         ahp1 = pets[nam][rar]['AH'][0]
         ahp2 = pets[nam][rar1]['AH'][0]
         vwah = pets[nam][rar]['AH'][1]
         bit = (ahp2-((ahp1+basp)+(matc*matp)))/(ktf*500)
-        print('['+rar+']',nam,':',bit)
-        
-print('+-----------------------------------------+')
+        if matn==None:
+            temptab = [nam,rar1,round(bit,1),ahp1,ahp2,str(petc1)+' | '+str(petc2),'-']
+        else:
+            temptab = [nam,rar1,round(bit,1),ahp1,ahp2,str(petc1)+' | '+str(petc2),str(matc)+' x '+matn+' = '+str(round(matc*matp))+' | '+str(ktf)]
+        pettab.append(temptab)
 
 for nam in pets:
     for rar in pets[nam]:
         bits(nam,rar)
+
+pettab.sort(key=lambda x:x[2],reverse=True)
+head = ['Pet','Rarity','Coins/Bit','Pet Buy Price','Pet Sell Price','BPC | SPC','Materials | Roses']
+
+print(tabulate.tabulate(pettab,headers=head,tablefmt='grid'))
